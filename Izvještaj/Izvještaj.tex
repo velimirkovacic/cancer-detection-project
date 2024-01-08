@@ -58,12 +58,41 @@ U ovome radu će se prvo opisati postojeća rješenja problema. Dalje, opisati k
 \section{Pregled postojećih rješenja}
 Prema \cite{mehmood2022malignancy} bilo je mnogo prijašnjih istraživanja na ovu temu i predloženih rješenja s obećavajućim rezultatima. U radu \cite{Sirinukunwattana} je predložena prostorno ograničena neuronska mreža za detektiranje jezgre u histopatološkim slikama stanica raka crijeva i postigla najveću točnost od 97,1\%.
 
-\pagebreak[3]
+
+
+
+\section{Korišteni skup podataka}
+Za potrebe ovog rada, korišten je skup podataka \textit{LC25000}, objavljen 2020. \cite{borkowski2019lung} Sastoji se od 25000 slika tkiva pluća i debelog crijeva koje se dijele u 5 razreda:
+\begin{itemize}
+	\item Adenokarcinom plućnog tkiva
+	\item Karcinom pločastih (skvamoznih) stanica plućnog tkiva
+	\item Dobroćudno (benigno) plućno tkivo
+	\item Adenokarcinom tkiva debelog crijeva
+	\item Dobroćudno (benigno) tkivo debelog crijeva
+\end{itemize}
+
+
+Skup se od 1250 jedinstvenih slika čiji je broj povećan rotacijama i zrcaljenjem na 25000. Svaki razred ima 5000 pripadnih slika. Sve su slike veličine 768 x 768 piksela. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ostalo/slike_tkiva.png}
+	\caption{Prikaz 9 slučajno odabranih slika tkiva iz skupa podataka}
+	\label{fig:tissue_images}
+\end{figure}
+
 
 \section{Opis našeg rješenja}
-TODO
+Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje, skup za validaciju i skup za testiranje u omjeru 7:1:2. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
 
-\pagebreak
+\subsection{ResNet50}
+Konvolucijska neuronska mreža s 50 slojeva ResNet50 korištena je kao temelj prvog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 potpuno povezana skrivena sloja 1 jedan izlazni. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+
+Dakle model ResNet50 ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo. Učenje modela provedeno je kroz 60 epoha.
+
+
+\subsection{MobileNetV2}
+
 
 \section{Rezultati eksperimenata}
 TODO
@@ -71,7 +100,7 @@ MobileNetV2
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{MobileNetV2/accuracy_loss.png}
-  \caption{Točnost(lijevo) i gubitak(desno) modela MobileNetV2 nad podacima za treniranje i validaciju po epohama}
+  \caption{Točnost (lijevo) i gubitak (desno) modela MobileNetV2 nad podacima za treniranje i validaciju po epohama}
   \label{fig:MN_acc_loss}
 \end{figure}
 \begin{figure}[ht]
@@ -83,7 +112,7 @@ MobileNetV2
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{MobileNetV2/fitness_metrics.png}
-  \caption{Metrike dobrote modela MobileNetV2}
+  \caption{Mjere dobrote modela MobileNetV2}
   \label{fig:MN_fit_met}
 \end{figure}
 
@@ -91,7 +120,7 @@ ResNet50
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{ResNet50/accuracy_loss.png}
-  \caption{Točnost(lijevo) i gubitak(desno) modela ResNet50 nad podacima za treniranje i validaciju po epohama}
+  \caption{Točnost (lijevo) i gubitak (desno) modela ResNet50 nad podacima za treniranje i validaciju po epohama}
   \label{fig:RN50_acc_loss}
 \end{figure}
 \begin{figure}[ht]
@@ -103,7 +132,7 @@ ResNet50
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{ResNet50/fitness_metrics.png}
-  \caption{Metrike dobrote modela ResNet50}
+  \caption{Mjere dobrote modela ResNet50}
   \label{fig:RN50_fit_met}
 \end{figure}
 
