@@ -1,0 +1,122 @@
+\documentclass[conference, utf8]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenx}
+\usepackage[croatian]{babel}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Prepoznavanje raka pluća i debelog crijeva na slikama koristeći CNN}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Dominik Jambrović}
+\IEEEauthorblockA{\textit{FER}}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Filip Pankretić}
+\IEEEauthorblockA{\textit{FER}}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Velimir Kovačić}
+\IEEEauthorblockA{\textit{FER}}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Filip Perković}
+\IEEEauthorblockA{\textit{FER}}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Luka Glavinić}
+\IEEEauthorblockA{\textit{FER}}
+\and
+\IEEEauthorblockN{6\textsuperscript{th} Neven Krznar}
+\IEEEauthorblockA{\textit{FER}}}
+
+\maketitle
+
+\section{Opis problema i motivacija}
+Rak je jedna od najsmrtonosnijih bolesti na svijetu. Svake godine izvještaji pokazuju preko 19 milijuna novih slučajeva i oko 10 smrtnih slučajeva \cite{world2019international}. Rak se može dobiti zbog mnogo razloga, UV zračenje, pušenje cigareta, udisanje kancerogenih plinova, nasljedne bolesti i tako dalje.
+\\
+Općenito stanice ljudskog tijela svaki dan umiru i zamjenjuju novima procesom staničnog dijeljenja. Zbog trilijuna stanica koje čini naše tijelo, u ovim procesima može doći do greške pogrešnim repliciranjem molekule DNK.
+\\
+Upravo takve stanice se nazivaju tumorskim stanicama. Tumori mogu biti zloćudni ili dobroćudni. Zloćudni tumori dovode do raka koji može zahvatiti skoro pa svaki organ ljudskog tijela.
+\\
+Od raka obolijevaju i muškarci i žene, a najčešći oblici raka su rak crijeva, rak pluća, rak jetre, rak dojke, rak rektuma, rak mozga, rak prostate, rak želuca i rak kože.
+\\
+Od raka pluća i raka crijeva otprilike jednakom mjerom obolijevaju i muškarci i žene, zbog čega će njihovo otkrivanje biti fokus ovoga rada.
+\\
+Za rak još uvijek nema lijeka, nego postoje samo tretmani koji mogu biti učinkoviti ako je rak otkriven što ranije.
+Zbog ovoga znanstvenici i doktori medicine diljem svijeta su počeli tražiti rješenje protiv ove bolesti u područjima dubokog učenja i računarske znanosti.
+\\
+Motivacija ovog rada je pokazati kako se pomoću umjetnih neuronskih mreža može obavljati bolje predviđanje prirode stanica tkiva slikanim medicinskim instrumentima i time pomoći stručnjacima dijagnosticirati pacijente.
+\\
+U ovome radu će se prvo opisati postojeća rješenja problema. Dalje, opisati korišteni skup podataka, a nakon toga korištene neuronske mreže i prikazati njihovi rezultati. Na kraju će se prodiskutirati i usporediti rezultati tuđih pristupa i našeg pristupa i dati zaključak.
+
+\pagebreak[1]
+
+\section{Pregled postojećih rješenja}
+Prema \cite{mehmood2022malignancy} bilo je mnogo prijašnjih istraživanja na ovu temu i predloženih rješenja s obećavajućim rezultatima. U radu \cite{Sirinukunwattana} je predložena prostorno ograničena neuronska mreža za detektiranje jezgre u histopatološkim slikama stanica raka crijeva i postigla najveću točnost od 97,1\%.
+
+\pagebreak[3]
+
+\section{Opis našeg rješenja}
+TODO
+
+\pagebreak
+
+\section{Rezultati eksperimenata}
+TODO
+MobileNetV2
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{MobileNetV2/accuracy_loss.png}
+  \caption{Točnost(lijevo) i gubitak(desno) modela MobileNetV2 nad podacima za treniranje i validaciju po epohama}
+  \label{fig:MN_acc_loss}
+\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{MobileNetV2/confusion_matrix.png}
+  \caption{Matrica zabune modela MobileNetV2}
+  \label{fig:MN_conf_mat}
+\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{MobileNetV2/fitness_metrics.png}
+  \caption{Metrike dobrote modela MobileNetV2}
+  \label{fig:MN_fit_met}
+\end{figure}
+
+ResNet50
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{ResNet50/accuracy_loss.png}
+  \caption{Točnost(lijevo) i gubitak(desno) modela ResNet50 nad podacima za treniranje i validaciju po epohama}
+  \label{fig:RN50_acc_loss}
+\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{ResNet50/confusion_matrix.png}
+  \caption{Matrica zabune modela ResNet50}
+  \label{fig:RN50_conf_mat}
+\end{figure}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\columnwidth]{ResNet50/fitness_metrics.png}
+  \caption{Metrike dobrote modela ResNet50}
+  \label{fig:RN50_fit_met}
+\end{figure}
+
+\pagebreak
+
+\section{Diskusija rezultata i usporedba s prijašnjim radovima}
+TODO
+
+\pagebreak
+
+\section{Zaključak}
+TODO
+
+\bibliography{literatura}
+\bibliographystyle{ieeetr}
+\end{document}
