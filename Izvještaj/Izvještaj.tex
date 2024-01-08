@@ -86,17 +86,44 @@ Skup se od 1250 jedinstvenih slika čiji je broj povećan rotacijama i zrcaljenj
 Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje, skup za validaciju i skup za testiranje u omjeru 7:1:2. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
 
 \subsection{ResNet50}
-Konvolucijska neuronska mreža s 50 slojeva ResNet50 korištena je kao temelj prvog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 potpuno povezana skrivena sloja 1 jedan izlazni. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+Konvolucijska neuronska mreža s 50 slojeva \textit{ResNet50} korištena je kao temelj prvog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 potpuno povezana skrivena sloja te 1 jedan izlazni. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
 
-Dakle model ResNet50 ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo. Učenje modela provedeno je kroz 60 epoha.
+Dakle model \textit{ResNet50} ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo. Učenje modela provedeno je kroz 60 epoha.
 
 
 \subsection{MobileNetV2}
+Konvolucijska neuronska mreža s 53 sloja \textit{MobileNetV2} korištena je kao temelj drugog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 2 potpuno povezana skrivena sloja te 1 jedan izlazni. Skriveni slojevi su  \textit{BatchNormalization} i \textit{Flatten}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+
+Dakle model \textit{MobileNetV2} ima 56 slojeva i 2576709 parametara, od kojih je 2540037 njih učivo. Učenje modela provedeno je kroz 60 epoha.
+
 
 
 \section{Rezultati eksperimenata}
-TODO
-MobileNetV2
+Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i skupu za validaciju tijekom procesa učenja, slike \ref{fig:RN50_acc_loss} i \ref{fig:MN_acc_loss}. Matrica zabune, računata na skupu za testiranje, prikazana je za oba modela, slike \ref{fig:RN50_conf_mat} i \ref{fig:MN_conf_mat}. Konačno, za svaku klasu u oba modela dan je stupčasti dijagram raznih mjera dobrote (točnost, preciznost, F1, odziv i specifičnost), slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}.
+
+\subsection{ResNet50}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ResNet50/accuracy_loss.png}
+	\caption{Točnost (lijevo) i gubitak (desno) modela ResNet50 nad podacima za treniranje i validaciju po epohama}
+	\label{fig:RN50_acc_loss}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ResNet50/confusion_matrix.png}
+	\caption{Matrica zabune modela ResNet50}
+	\label{fig:RN50_conf_mat}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ResNet50/fitness_metrics.png}
+	\caption{Mjere dobrote modela ResNet50}
+	\label{fig:RN50_fit_met}
+\end{figure}
+
+\pagebreak
+
+\subsection{MobileNetV2}
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{MobileNetV2/accuracy_loss.png}
@@ -116,27 +143,8 @@ MobileNetV2
   \label{fig:MN_fit_met}
 \end{figure}
 
-ResNet50
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\columnwidth]{ResNet50/accuracy_loss.png}
-  \caption{Točnost (lijevo) i gubitak (desno) modela ResNet50 nad podacima za treniranje i validaciju po epohama}
-  \label{fig:RN50_acc_loss}
-\end{figure}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\columnwidth]{ResNet50/confusion_matrix.png}
-  \caption{Matrica zabune modela ResNet50}
-  \label{fig:RN50_conf_mat}
-\end{figure}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\columnwidth]{ResNet50/fitness_metrics.png}
-  \caption{Mjere dobrote modela ResNet50}
-  \label{fig:RN50_fit_met}
-\end{figure}
-
 \pagebreak
+
 
 \section{Diskusija rezultata i usporedba s prijašnjim radovima}
 TODO
