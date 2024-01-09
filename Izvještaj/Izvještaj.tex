@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{multirow}
 \usepackage[utf8]{inputenx}
 \usepackage[croatian]{babel}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -83,25 +84,49 @@ Skup se od 1250 jedinstvenih slika čiji je broj povećan rotacijama i zrcaljenj
 
 
 \section{Opis našeg rješenja}
-Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje, skup za validaciju i skup za testiranje u omjeru 7:1:2. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
+Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje (70\% podataka), skup za validaciju (10\% podataka) i skup za testiranje ((20\% podataka)).. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
+
+\subsection{Konvolucijske neuronske mreže}
+
+TODO opisati što to je konvolucijska mreža i konvolucijski sloj
+
+
 
 \subsection{ResNet50}
-Konvolucijska neuronska mreža s 50 slojeva \textit{ResNet50} korištena je kao temelj prvog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 potpuno povezana skrivena sloja te 1 jedan izlazni. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+Konvolucijska neuronska mreža s 50 slojeva \textit{ResNet50} korištena je kao temelj prvog modela.
+
+
+
+TODO što to je ResNet50, po čemu je poseban
+Validacijski skup za odabir najboljeg modela
+
+
+
+ Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 skrivena te 1 jedan izlazni sloj. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
 
 Dakle model \textit{ResNet50} ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo. Učenje modela provedeno je kroz 60 epoha.
 
 
 \subsection{MobileNetV2}
-Konvolucijska neuronska mreža s 53 sloja \textit{MobileNetV2} korištena je kao temelj drugog modela. Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 2 potpuno povezana skrivena sloja te 1 jedan izlazni. Skriveni slojevi su  \textit{BatchNormalization} i \textit{Flatten}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+Konvolucijska neuronska mreža s 53 sloja \textit{MobileNetV2} korištena je kao temelj drugog modela.
+
+
+
+TODO što to je MobileNetV2, po čemu je poseban
+ Napomenuti da se trenirala cijela mreža (za razliku od resnet50a, manje parametara)
+
+
+
+ Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 2 skrivena te 1 izlazni sloj. Skriveni slojevi su  \textit{BatchNormalization} i \textit{Flatten}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
 
 Dakle model \textit{MobileNetV2} ima 56 slojeva i 2576709 parametara, od kojih je 2540037 njih učivo. Učenje modela provedeno je kroz 60 epoha.
 
 
 
-\section{Rezultati eksperimenata}
-Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i skupu za validaciju tijekom procesa učenja, slike \ref{fig:RN50_acc_loss} i \ref{fig:MN_acc_loss}. Matrica zabune, računata na skupu za testiranje, prikazana je za oba modela, slike \ref{fig:RN50_conf_mat} i \ref{fig:MN_conf_mat}. Konačno, za svaku klasu u oba modela dan je stupčasti dijagram raznih mjera dobrote (točnost, preciznost, F1, odziv i specifičnost), slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}.
+\section{Rezultati}
 
-\subsection{ResNet50}
+\subsection{Točnost i gubitak}
+Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i skupu za validaciju tijekom procesa učenja (slike \ref{fig:RN50_acc_loss} i \ref{fig:MN_acc_loss}). 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{ResNet50/accuracy_loss.png}
@@ -110,10 +135,118 @@ Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i sku
 \end{figure}
 \begin{figure}[ht]
 	\centering
+	\includegraphics[width=\columnwidth]{MobileNetV2/accuracy_loss.png}
+	\caption{Točnost (lijevo) i gubitak (desno) modela MobileNetV2 nad podacima za treniranje i validaciju po epohama}
+	\label{fig:MN_acc_loss}
+\end{figure}
+
+Tablicom \ref{table:1} usporedno su prikazane točnosti predviđanja, a tablicom \ref{table:2} gubici oba modela  nakon učenja. Točnosti i gubici odnose se na predviđanja nad skupom za učenje, skupom za validaciju i skupom za testiranje. 
+
+%Primjetno je da model \textit{ResNet50} ima veću točnost (99.32\%) na skupu za testiranje od modela \textit{MobileNetV2} (98.65\%).
+
+\begin{table}[ht]
+	\centering
+		\caption{Točnosti modela}
+	\label{table:1}
+\begin{tabular}{ |c|c|c|c| } 
+	\hline
+	& \multicolumn{3}{c|}{Točnost} \\
+	\hline
+	Model & Skup za učenje & Skup za validaciju & Skup za testiranje \\
+	\hline \hline
+	ResNet50 & 99.45\% & 98.96\% & 99.32\%  \\
+	\hline
+	MobileNetV2 & 99.78\% & 97.49\% & 98.65\%  \\
+	\hline
+	\end{tabular}
+\end{table}
+\begin{table}[ht]
+	\centering
+	\caption{Gubici modela}
+	\label{table:2}
+	\begin{tabular}{ |c|c|c|c| } 
+		\hline
+		& \multicolumn{3}{c|}{Gubitak} \\
+		\hline
+		Model & Skup za učenje & Skup za validaciju & Skup za testiranje \\
+		\hline \hline
+		ResNet50 & 0.049 & 0.152 & 0.091  \\
+		\hline
+		MobileNetV2 & 0.011 & 0.100 & 0.047 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+\pagebreak
+
+\subsection{Matrica zabune}
+Matrica zabune, računata na skupu za testiranje, prikazana je za oba modela (slike \ref{fig:RN50_conf_mat} i \ref{fig:MN_conf_mat}).
+
+Radi lakšeg snalaženja na matrici zabune, u tablici \ref{table:3} predstavljene su brojčane oznake pojedinih razreda.
+
+\begin{table}[ht]
+	\centering
+	\caption{Oznake razreda na grafu}
+	\label{table:3}
+	\begin{tabular}{ |c|c| } 
+		\hline
+		Oznaka & Razred \\
+		\hline \hline
+		0 & Adenokarcinom tkiva debelog crijeva \\
+		\hline
+		1 & Dobroćudno (benigno) tkivo debelog crijeva \\
+		\hline
+		2 & Adenokarcinom plućnog tkiva \\
+		\hline
+		3 & Dobroćudno (benigno) plućno tkivo \\
+		\hline
+		4 & Karcinom pločastih (skvamoznih) stanica plućnog tkiva \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{figure}[ht]
+	\centering
 	\includegraphics[width=\columnwidth]{ResNet50/confusion_matrix.png}
 	\caption{Matrica zabune modela ResNet50}
 	\label{fig:RN50_conf_mat}
 \end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{MobileNetV2/confusion_matrix.png}
+	\caption{Matrica zabune modela MobileNetV2}
+	\label{fig:MN_conf_mat}
+\end{figure}
+\pagebreak
+
+%Matrice zabune oba modela su slične, ali \textit{ResNet50} ima točnije predviđanje za razrede 1 i 2 te bitno točnije predviđanje za razred 4 (Karcinom pločastih (skvamoznih) stanica plućnog tkiva).
+
+
+\section{Mjere dobrote}
+ Konačno, za svaki razred u oba modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}).
+
+\begin{equation}
+	Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \label{eq:1}
+\end{equation}
+\begin{equation}
+	Precision = \frac{TP}{TP + FP} \label{eq:2}
+\end{equation}
+\begin{equation}
+	Recall = \frac{TP}{TP + FN} \label{eq:3}
+\end{equation}
+\begin{equation}
+	F1 = \frac{TP}{TP + 0.5(FN + FP)}
+\end{equation}
+\begin{equation}
+	Specificity = \frac{TN}{TN + FP} \label{eq:5}
+\end{equation}
+
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\columnwidth]{ResNet50/fitness_metrics.png}
@@ -121,35 +254,65 @@ Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i sku
 	\label{fig:RN50_fit_met}
 \end{figure}
 
-\pagebreak
 
-\subsection{MobileNetV2}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\columnwidth]{MobileNetV2/accuracy_loss.png}
-  \caption{Točnost (lijevo) i gubitak (desno) modela MobileNetV2 nad podacima za treniranje i validaciju po epohama}
-  \label{fig:MN_acc_loss}
-\end{figure}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\columnwidth]{MobileNetV2/confusion_matrix.png}
-  \caption{Matrica zabune modela MobileNetV2}
-  \label{fig:MN_conf_mat}
-\end{figure}
+
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{MobileNetV2/fitness_metrics.png}
   \caption{Mjere dobrote modela MobileNetV2}
   \label{fig:MN_fit_met}
 \end{figure}
-
 \pagebreak
+Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}).
+
+\begin{table}[ht]
+	\centering
+	\caption{Mjere dobrote za model ResNet50}
+	\label{table:4}
+	\begin{tabular}{ |c|c|c|c|c|c| } 
+		\hline
+		Oznaka razreda & Točnost & Preciznost & F1 & Odziv & Specifičnost \\
+		\hline\hline
+		  0 & 99.92\% & 100\% & 99.8\% & 99.6\% & 100\% \\
+									\hline
+									  1 & 99.92\% & 99.58\% & 99.79\% & 100\% & 99.9\% \\
+									 \hline
+									  2 & 99.4\% & 98.27\% & 98.47\% & 98.67\% & 99.58\% \\
+									 \hline
+									  3 & 99.98\% & 100\% & 99.95\% & 99.9\% & 100\% \\
+									 \hline
+									  4 & 99.98\% & 100\% & 99.95\% & 99.9\% & 100\% \\
+									 \hline
+	\end{tabular}
+\end{table}
+\begin{table}[ht]
+	\centering
+	\caption{Mjere dobrote za model MobileNetV2}
+	\label{table:5}
+	\begin{tabular}{ |c|c|c|c|c|c| } 
+		\hline
+		Oznaka razreda & Točnost & Preciznost & F1 & Odziv & Specifičnost \\
+		\hline\hline
+		0 & 99.62\% & 100\% & 99.05\% & 98.12\% & 100\% \\
+		\hline
+		1 & 99.82\% & 99.07\% & 99.53\% & 100\% & 99.78\% \\
+		\hline
+		2 & 98.94\% & 98.57\% & 97.34\% & 96.13\% & 99.65\% \\
+		\hline
+		3 & 100\% & 100\% & 100\% & 100\% & 100\% \\
+		\hline
+		4 & 98.94\% & 95.72\% & 97.37\% & 99.09\% & 98.9\% \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
 
 
 \section{Diskusija rezultata i usporedba s prijašnjim radovima}
 TODO
 
-\pagebreak
+
 
 \section{Zaključak}
 TODO
