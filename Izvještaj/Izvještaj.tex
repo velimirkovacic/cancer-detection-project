@@ -87,8 +87,25 @@ Skup se od 1250 jedinstvenih slika čiji je broj povećan rotacijama i zrcaljenj
 Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje (70\% podataka), skup za validaciju (10\% podataka) i skup za testiranje ((20\% podataka)).. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
 
 \subsection{Konvolucijske neuronske mreže}
+Konvolucijska neuronska mreža inačica je višeslojnog perceptrona koja se temelji na filtriranju slike (konvoluciji). Mreža je nadahnuta povezanošću neurona u vidnoj kori ljudskog mozga.  Takva mreža je deterministička i pogodna za analizu slika. 
 
-TODO opisati što to je konvolucijska mreža i konvolucijski sloj
+Sastoji se od niza konvolucijskih slojeva isprekidanih podotikavajućim slojevima. Na kraju mreže može biti postavljen klasični višeslojni perceptron kojim se uspostavlja veza između mapi značajki i traženih izlaza. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\columnwidth]{ostalo/cnn.png}
+	\caption{Primjer konvolucijske neuronske mreže za klasifikaciju vozila}
+	\label{fig:cnn}
+\end{figure}
+
+Konvolucijski sloj primjenjuje filtere (u obliku neurona) od kojih je svaki zadužen za pojedinu značajku. Rezultat primjene tih filtara naziva se mapa značajki. Svaki se filter primjenjuje na svim mapama značajki prethodog sloja, a pritom su težine neurona iste ili slične. Takav sloj je neovisan o translaciji, ali ima ograničenu robusnost na rotaciju. 
+
+Podotipkavajući sloj služi za smanjenje veličine ulaza. Uz to umanjuje utjecaj pomaka značajki u prostoru.
+
+Konvolucijska neuronska mreža uči se postupkom propagacije unatrag (često uz korištenje minigrupa). Problem prilikom učenja često je nedostatak memorije GPU. Može se zaobići korištenjem slobodno dostupnih predtreniranih slojeva mreže.
+
+
+
 
 
 
