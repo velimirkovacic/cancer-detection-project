@@ -251,7 +251,7 @@
 	
 	
 	\section{Mjere dobrote}
-	Konačno, za svaki razred u oba naša modela i model iz \cite{RAD1} dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}).
+	Konačno, za svaki razred u oba naša modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}).
 	
 	\begin{equation}
 		Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \label{eq:1}
@@ -286,18 +286,18 @@
 		\label{fig:MN_fit_met}
 	\end{figure}
 	
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[width=\columnwidth]{ostalo/rad1_stupci.png}
-		\caption{Mjere dobrote modela MobileNetV2}
-		\label{fig:AlexNet_fit_met}
-	\end{figure}
+%	\begin{figure}[ht]
+%		\centering
+%		\includegraphics[width=\columnwidth]{ostalo/rad1_stupci.png}
+%		\caption{Mjere dobrote modela AlexNet\cite{RAD1}}
+%		\label{fig:AlexNet_fit_met}
+%	\end{figure}
 
-	Isti podaci prikazani su tablično (tablice \ref{table:4}, \ref{table:5} i \ref{fig:AlexNet_fit_met_tab}). Za model iz rada \cite{RAD2} ne postoje mjere dobrote po klasama, nego samo prosječne (tablica \ref{table:6}).
+	Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}). Tablica \ref{table:6} usporedno prikazuje prosječne mjere dobrote nad svim klasama za naše modele i modele iz prijašnjih radova.
 	
 	\begin{table}[ht]
 		\centering
-		\caption{Mjere dobrote za model ResNet50}
+		\caption{Mjere dobrote razreda za model ResNet50}
 		\label{table:4}
 		\begin{tabular}{ |c|c|c|c|c|c| } 
 			\hline
@@ -317,7 +317,7 @@
 	\end{table}
 	\begin{table}[ht]
 		\centering
-		\caption{Mjere dobrote za model MobileNetV2}
+		\caption{Mjere dobrote razreda za model MobileNetV2}
 		\label{table:5}
 		\begin{tabular}{ |c|c|c|c|c|c| } 
 			\hline
@@ -335,31 +335,25 @@
 			\hline
 		\end{tabular}
 	\end{table}
-	
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[width=\columnwidth]{ostalo/rad1_mjere.png}
-		\caption{Tablica mjera dobrote modela AlexNet\cite{RAD1}}
-		\label{fig:AlexNet_fit_met_tab}
-	\end{figure}	
-	
-	\begin{table}[ht]
-		\centering
-		\caption{Mjere dobrote za model CNN\cite{RAD2}}
-		\label{table:6}
-		\begin{tabular}{ |c|c|c|c| } 
-			\hline
-			Točnost & Preciznost  & Odziv & F1 \\
-			\hline\hline
-			 96.33\% & 96.39\% & 96.37\% & 96.38\%\\
-			\hline
-		\end{tabular}
-	\end{table}
-	
-
-	
-	\section{Diskusija rezultata i usporedba s prijašnjim radovima}
-	TODO
+\begin{table}[ht]
+	\centering
+	\caption{Prosječne mjere dobrote za sve modele}
+	\label{table:6}
+	\begin{tabular}{ |c|c|c|c|c|c| } 
+		\hline
+		Model & Točnost & Preciznost & F1 & Odziv & Specifičnost \\
+		\hline\hline
+		ResNet50 & 99.73\% & 99.32\% & 99.32\% & 99.32\% & 99.83\% \\
+		\hline
+		MobileNetV2 & 99.46\% & 98.67\% & 98.66\% & 98.67\% & 99.67\% \\
+		\hline
+		AlexNet\cite{RAD1} & 95.90\% &	92.36\%	&86.94\% &	87.29\%	&97.46\%
+		 \\
+		\hline
+		CNN\cite{RAD2} & 96.33\% & 96.39\% & 96.38\% & - & 96.37\% \\
+		\hline
+	\end{tabular}
+\end{table}
 	
 	
 	
