@@ -109,8 +109,6 @@
 	Glavna inovacija u \textit{ResNet50} su rezidualne veze, koje omogućavaju mreži da nauči rezidualne funkcije za mapiranje ulaza na tražene izlaze. Omogućava veću dubinu mreža bez problema iščezavanja gradijenta. 
 	
 	Prednaučena je na skupu podataka \textit{ImageNet}. Dodana su još 4 skrivena te 1 izlazni sloj. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{softmax}. Skriveni sloj \textit{Dropout} koristi se samo za vrijeme treniranja. Ignorira određeni postotak veza u pojedinom koraku učenja i na taj način sprječava prenaučenost.
-	
-	Dakle model \textit{ResNet50} ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo jer se predtrenirani slojevi nisu učili. Učenje modela provedeno je kroz 60 epoha.
 
  	\begin{figure}[H]
 		\centering
@@ -119,6 +117,10 @@
 		\label{fig:resnet50model}
 	\end{figure}
 	
+		
+	Dakle model \textit{ResNet50} ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo jer se predtrenirani slojevi nisu učili. Učenje modela provedeno je kroz 60 epoha.
+	
+	
 	\subsection{MobileNetV2}
 	Drugi model utemeljen je na čisto konvolucijskoj neuronskoj mreži s 53 konvolucijska sloja \textit{MobileNetV2}. Ona je osmišljena kako bi učinkovito radila na mobilnim uređajima zahvaljujući manjem broju parametara. Uvodi novu vrstu bloka \textit{Inverted Residuals} i konvolucijski sloj \textit{Linear Bottleneck}. U bloku \textit{Inverted Residuals}, značajke nižih dimenzija preslikavaju se u više dimenzije, zatim se primjenjuje konvolucijski sloj \textit{Depthwise}, nakon čega se dimenzije značajki ponovno snižavaju na početne. Sloj \textit{Linear Bottleneck} konvolucijski je sloj \textit{Bottleneck} s linearnom aktivacijskom funkcijom.
 	
@@ -126,7 +128,7 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\columnwidth]{Architectures/mobilenetv2_architecture.png}
+		\includegraphics[width=0.5\columnwidth]{Architectures/mobilenetv2_architecture.png}
 		\caption{Arhitektura korištenog modela MobileNetV2}
 		\label{fig:mobilenetv2model}
 	\end{figure}
