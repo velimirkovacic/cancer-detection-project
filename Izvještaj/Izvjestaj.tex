@@ -249,12 +249,14 @@
 	
 	Model \textit{ResNet50} ima općenito najmanje pogrešnih klasifikacija, 0.68\%. \textit{MobileNetV2} ima 1.16\%, \textit{AlexNet}\cite{RAD1} ima 1.62\%  i \textit{CNN}\cite{RAD2} ima 3.67\% pogrešnih klasifikacija. 
 	
-	\textit{ResNet50}, \textit{MobileNetV2} i \textit{CNN}\cite{RAD2} imaju problema s razlikovanjem adenokarcinoma i karcinoma pločastih stanica plućnog tkiva. \textit{AlexNet}\cite{RAD1} taj problem nema, ali ima više manjih pogrešaka između raznih razreda. 
+	\textit{ResNet50}, \textit{MobileNetV2} i \textit{CNN}\cite{RAD2} imaju problema s razlikovanjem adenokarcinoma i karcinoma pločastih stanica plućnog tkiva. Uspješno raspoznaje radi li se o karcinomu ili ne, ali teže određuje vrstu karcinoma na plućnom tkivu. To implicira bliskost tih grupa slika u ulaznom prostoru i odgovara prirodi problema.
+	
+	 \textit{AlexNet}\cite{RAD1} taj problem nema, ali ima više manjih pogrešaka između raznih razreda. 
 	
 	
 	
 	\section{Mjere dobrote}
-	Konačno, za svaki razred u oba naša modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}).
+	Konačno, za svaki razred u oba naša modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}). Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}). Tablica \ref{table:6} usporedno prikazuje prosječne mjere dobrote nad svim klasama za naše modele i modele iz prijašnjih radova.
 	
 	\begin{equation}
 		Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \label{eq:1}
@@ -296,7 +298,7 @@
 %		\label{fig:AlexNet_fit_met}
 %	\end{figure}
 
-	Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}). Tablica \ref{table:6} usporedno prikazuje prosječne mjere dobrote nad svim klasama za naše modele i modele iz prijašnjih radova.
+
 	
 	\begin{table}[H]
 		\centering
@@ -338,6 +340,10 @@
 			\hline
 		\end{tabular}
 	\end{table}
+	
+	Kao i prilikom analize matrica zabune, može se vidjeti da su mjere oba modela lošije kada se razmatraju razredi karcinoma plućnog tkiva. Oba modela teže raspoznaju karcinom pločastih stanica i adenokarcinom plućnog tkiva. \textit{MobileNetV2} ima lošije mjere od \textit{ResNet50} na svim razredima osim na dobroćudnom plućnom tkivu, koje je klasificirao potpuno točno. 
+	
+
     \begin{table}[H]
     	\centering
     	\caption{Prosječne mjere dobrote za sve modele}
@@ -358,10 +364,7 @@
     	\end{tabular}
     \end{table}
     
-    
-    
-    
-    TODO Komentirati rezultate mjera dobrote
+    Usporednom analizom mjera naših modela i modela iz prijašnjih radova, vidi se da naši modeli imaju bolji rezultat po svim korištenim mjerilima.
 
 
 
