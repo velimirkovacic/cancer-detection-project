@@ -59,7 +59,7 @@
 	U ovome radu će se prvo opisati postojeća rješenja problema. Dalje, opisati korišteni skup podataka, a nakon toga korištene neuronske mreže i prikazati njihovi rezultati. Na kraju će se prodiskutirati i usporediti rezultati tuđih pristupa i našeg pristupa i dati zaključak.
 	
 	\section{Pregled postojećih rješenja}
-	Prema \cite{mehmood2022malignancy} bilo je mnogo prijašnjih istraživanja na ovu temu i predloženih rješenja s obećavajućim rezultatima. U ovom poglavlju će se pričati o radovima s domenom o raku pluća i raku crijeva, jer je to tema našeg rada. Rješenja variraju po tipovima slika korištenih za treniranje modela, metodama za procesiranje slika, karakteristikama izvučenih iz svake slike i arhitekturama modela. U radu \cite{Sirinukunwattana} je predložena prostorno ograničena neuronska mreža za detektiranje jezgre u histopatološkim slikama stanica raka crijeva i postigla najveću točnost od 97.1\%. U radu \cite{Multimodal_sparse} je razvijena metoda za klasificiranje stanica raka iz jezgri stanica dobivenim biopsijom iglom i segmentiranim na 4372 regije. Postigli su konačnu točnost od 88.1\%. Također je razvijeno rješenje za višerazrednu klasifikaciju više tipova raka uz korištenje tri vrste stroja potpornih vektora(SVM) \cite{xu2013multi}. Dalje, u radu iz 2014.\cite{kuruvilla2014lung} predložena je CAD metoda za klasifikaciju raka pluća temeljena na dvije umjetne neuronske mreže, jedna s unaprijednom propagacijom, a druga s jednom unaprijednom i unatražnom propagacijom. Postignuta ukupna točnost je iznosila 93.3\%. Također u \cite{deppen2014accuracy} je razvijena metoda za analizu invazivnih plućnih čvorova pomoću slika dobivenih PET skeniranjem i dobivali visoku točnost njihovog otkrivanja. U 2016. opisana je prostorno ograničena CNN metoda za detekciju i klasifikaciju jezgara tumorskih stanica raka crijeva. Metoda funkcionira pomoću histopatoloških slika i bez potrebe segmentacije \cite{sirinukunwattana2016locality}. Metoda razvijena bez potrebe labeliranja slika za ocjenjivanje raka crijeva \cite{kuepper2016label}. U radu su korištene slike infracrvene histopatologije. Klasifikacija se radila pomoću nadziranog učenja temeljenog na stablu odluke. Ukupna dobivena točnost je iznosila 99\%. U 2017. je razvijena metoda za klasifikaciju zloćudnih čvorova pluća, za koju nije bila potrebna niti segmentacija niti izvlačenje značajki \cite{shen2017multi}. U cijelosti su se pouzdali u svoj model strojnog učenja i postigli točnost od 87.14\%. Dalje, prema \cite{sun2017automatic} je korištena i istrenirana konvolucijska neuronska mreža za otkrivanje prisustva raka pluća na 134,668 CT skenova. Postignuta je točnost od 89.9\%. Prema radu \cite{yuan2017automatic} je opisana metoda dubokog učenja za otkrivanje polipa iz videa kolonoskopije. Za klasifikaciju su koristili umjetnu neuronsku mrežu AlexNet što je rezultiralo s 91.47\% točnosti klasifikacije. Godine 2018. je predložena metoda za predviđanje raka pluća \cite{selvanambi2020lung} koristeći optimizaciju roja svitaca  (GSO) sa slikama iz različitih izvora i s rekurentnom neuronskom mrežom (RNN) kao algoritamom učenja. Dobili su maksimalnu točnost iznosa 98\%. \cite{de2018classification} je predložena metoda identifikacije raka pluća pomoću konvolucijske neuronske mreže i testirana na preko 50,500 slika CT skenova. Postignuta je točnost od 92.63\%. Prema radu \cite{da2020lung} predložena je metoda za identificiranje zloćudnih čvorova u plućima koristeći ResNet50 i postignuta je točnost od 93.19\%. U \cite{masood2018computer} je opisana razvijena CAD metoda za otkrivanje raka pluća i klasifikaciju stadija raka. Korištena je konvolucijska neuronska mreža(CNN) i DFCNet u ispitivanju na 6 drugačijih skupova podataka. Postignuta je točnost od 89.52\%. Nadalje, \cite{babu2018colon} je opisana RF-temeljen klasifikacijski model za predviđanje prisustva raka crijeva analizirajući histopatološke slike raka. Izvlačenje značajki su obavljali dekompozicijom valnih duljina slika. Postigli su maksimalnu točnost klasifikacije od 85.4\%. Rad \cite{mo2018efficient} opisuje metodu temeljenu na brzom R-CNN za pronalazak raka crijeva. Koristili su aproksimativnu zglobnu optimizaciju koja optimira klasifikacijske i regresijske gubitke istovremeno. Postigli su točnost od 98.5\%. Dalje, rad \cite{urban2018deep} je razvio metodu za klasifikaciju polipa iz slika kolonoskopije sa točnošću od 96\%. Koristili su konvolucijsku neuronsku mrežu treniranu na ručno labeliranim slikama od 2000 pacijenata. Godine 2019. je u radu \cite{shakeel2020automatic} je predstavljena metoda za automatsko otkrivanje raka pluća temeljena na slikama CT skenova. Najzanimljiviji dio ovog rada je da su autori koristili diskretnu "AdaBoost" optimiranu ansabl učilačku generaliziranu neuronsku mrežu ili DAELGNN i postigli impresivnu točnost od 99\%. Cilj rada \cite{toraman2019classification} je bio klasificirati izglednost raka crijeva pomoću infracrvenih Fourierovih tranformnih spektroskopskih signala. Autori su dobili nekoliko statističkih značajki iz tih signala i koristili stroj potpornih vektora(SVM) i umjetne neuronske mreže(ANN) da bi ih klasificirali i dobili točnost od 95.71\%. Godine 2020. Suresh i Mohan \cite{suresh2020roi} su opisali metodu za klasifikaciju raka pluća i dijagnozu vrste raka pomoću regije interesa(ROI) vrste učenja konvolucijske neuronske mreže. Dobili su točnost klasifikacije od 93.9\%. Nadalje, u radu \cite{masud2020light} je testiran model za otkrivanje plućnih čvorova temeljena na slikama CT skenova s plitkom konvolucijskom mrežom. Testirana je na LIDC skupu podataka, i dobivena klasifikacijska točnost od 97.9\%. \cite{shakeel2022automatic} je predložio još jednu metodu za otkrivanje raka pluća pomoću slika CT skenova. Micanjem šuma sa slika, uprijeli su unaprijeđenu konvolucijsku mrežu(IDNN) za segmentaciju slike i mnogo metoda ansambla(EM) za klasifikaciju slika i dobili točnost od 96.2\%.
+	Prema \cite{mehmood2022malignancy} bilo je mnogo prijašnjih istraživanja na ovu temu i predloženih rješenja s obećavajućim rezultatima. U ovom poglavlju će se pričati o radovima s domenom o raku pluća i raku crijeva, jer je to tema našeg rada. Rješenja variraju po tipovima slika korištenih za treniranje modela, metodama za procesiranje slika, karakteristikama izvučenih iz svake slike i arhitekturama modela. U radu \cite{Sirinukunwattana} je predložena prostorno ograničena neuronska mreža za detektiranje jezgre u histopatološkim slikama stanica raka crijeva i postigla najveću točnost od 97.1\%. U radu \cite{Multimodal_sparse} je razvijena metoda za klasificiranje stanica raka iz jezgri stanica dobivenim biopsijom iglom i segmentiranim na 4372 regije. Postigli su konačnu točnost od 88.1\%. Dalje, u radu iz 2014.\cite{kuruvilla2014lung} predložena je CAD metoda za klasifikaciju raka pluća temeljena na dvije umjetne neuronske mreže, jedna s unaprijednom propagacijom, a druga s jednom unaprijednom i unatražnom propagacijom. Postignuta ukupna točnost je iznosila 93.3\%. Također u \cite{deppen2014accuracy} je razvijena metoda za analizu invazivnih plućnih čvorova s pomoću slika dobivenih PET skeniranjem i dobivali su visoku točnost njihovog otkrivanja. U 2016. opisana je prostorno ograničena CNN metoda za detekciju i klasifikaciju jezgara tumorskih stanica raka crijeva. Metoda funkcionira s pomoću histopatoloških slika i bez potrebe segmentacije \cite{sirinukunwattana2016locality}. Metoda je razvijena bez potrebe labeliranja slika za ocjenjivanje raka crijeva \cite{kuepper2016label}. U radu su korištene slike infracrvene histopatologije. Klasifikacija se radila s pomoću nadziranog učenja temeljenog na stablu odluke. Ukupna dobivena točnost je iznosila 99\%. U 2017. je razvijena metoda za klasifikaciju zloćudnih čvorova pluća, za koju nije bila potrebna niti segmentacija niti izvlačenje značajki \cite{shen2017multi}. U cijelosti su se pouzdali u svoj model strojnog učenja i postigli točnost od 87.14\%. Dalje, prema \cite{sun2017automatic} je korištena i istrenirana konvolucijska neuronska mreža za otkrivanje prisustva raka pluća na 134,668 CT skenova. Postignuta je točnost od 89.9\%. Prema radu \cite{yuan2017automatic} je opisana metoda dubokog učenja za otkrivanje polipa iz videa kolonoskopije. Za klasifikaciju su koristili umjetnu neuronsku mrežu AlexNet što je rezultiralo s 91.47\% točnosti klasifikacije. Godine 2018. je predložena metoda za predviđanje raka pluća \cite{selvanambi2020lung} koristeći optimizaciju roja svitaca (GSO) sa slikama iz različitih izvora i s rekurentnom neuronskom mrežom (RNN) kao algoritamom učenja. Dobili su maksimalnu točnost iznosa 98\%. U \cite{de2018classification} je predložena metoda identifikacije raka pluća s pomoću konvolucijske neuronske mreže i testirana na preko 50,500 slika CT skenova. Postignuta je točnost od 92.63\%. Prema radu \cite{da2020lung} predložena je metoda za identificiranje zloćudnih čvorova u plućima koristeći ResNet50 i postignuta je točnost od 93.19\%. U \cite{masood2018computer} je opisana razvijena CAD metoda za otkrivanje raka pluća i klasifikaciju stadija raka. Korištena je konvolucijska neuronska mreža (CNN) i DFCNet u ispitivanju na 6 drugačijih skupova podataka. Postignuta je točnost od 89.52\%. Nadalje, u \cite{babu2018colon} je opisana RF-temeljen klasifikacijski model za predviđanje prisustva raka crijeva analizirajući histopatološke slike raka. Izvlačenje značajki su obavljali dekompozicijom valnih duljina slika. Postigli su maksimalnu točnost klasifikacije od 85.4\%. Rad \cite{mo2018efficient} opisuje metodu temeljenu na brzom R-CNN za pronalazak raka crijeva. Koristili su aproksimativnu zglobnu optimizaciju koja optimira klasifikacijske i regresijske gubitke istovremeno. Postigli su točnost od 98.5\%. Dalje, rad \cite{urban2018deep} je razvio metodu za klasifikaciju polipa iz slika kolonoskopije s točnošću od 96\%. Koristili su konvolucijsku neuronsku mrežu treniranu na ručno labeliranim slikama od 2000 pacijenata. Godine 2019. je u radu \cite{shakeel2020automatic} je predstavljena metoda za automatsko otkrivanje raka pluća temeljena na slikama CT skenova. Najzanimljiviji dio ovog rada je da su autori koristili diskretnu "AdaBoost" optimiranu ansabl učilačku generaliziranu neuronsku mrežu ili DAELGNN i postigli impresivnu točnost od 99\%. Cilj rada \cite{toraman2019classification} je bio klasificirati izglednost raka crijeva s pomoću infracrvenih Fourierovih tranformnih spektroskopskih signala. Autori su dobili nekoliko statističkih značajki iz tih signala i koristili stroj potpornih vektora (SVM) i umjetne neuronske mrež e(ANN) da bi ih klasificirali i dobili točnost od 95.71\%. Godine 2020. Suresh i Mohan \cite{suresh2020roi} su opisali metodu za klasifikaciju raka pluća i dijagnozu vrste raka s pomoću regije interesa (ROI) vrste učenja konvolucijske neuronske mreže. Dobili su točnost klasifikacije od 93.9\%. Nadalje, u radu \cite{masud2020light} je testiran model za otkrivanje plućnih čvorova temeljena na slikama CT skenova s plitkom konvolucijskom mrežom. Testirana je na LIDC skupu podataka, i dobivena klasifikacijska točnost od 97.9\%. \cite{shakeel2022automatic} je predložio još jednu metodu za otkrivanje raka pluća s pomoću slika CT skenova. Micanjem šuma sa slika, uprijeli su unaprijeđenu konvolucijsku mrežu (IDNN) za segmentaciju slike i mnogo metoda ansambla (EM) za klasifikaciju slika i dobili točnost od 96.2\%.
 	
 	\section{Korišteni skup podataka}
 	Za potrebe ovog rada, korišten je skup podataka \textit{LC25000}, objavljen 2020. \cite{borkowski2019lung} Sastoji se od 25000 slika tkiva pluća i debelog crijeva koje se dijele u 5 razreda:
@@ -99,52 +99,47 @@
 	Konvolucijska neuronska mreža uči se postupkom propagacije unatrag (često uz korištenje minigrupa). Kod propagacije unatrag postoji problem iščezavanja gradijenta zbog velikog broja slojeva. Prilikom praktične izvedbe učenja često je problem nedostatak memorije GPU. Može se zaobići korištenjem slobodno dostupnih predtreniranih slojeva mreže.
 	
 	\section{Materijali i metode}
-	Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje (70\% podataka), skup za validaciju (10\% podataka) i skup za testiranje ((20\% podataka)). Skup za validaciju služi za odabir optimalnog modela prilikom učenja, a skup za testiranje služi za mjerenje performansi modela na neviđenim podacima. Same slike nisu prilagođavane, nego dovođene na ulaz neuronske mreže onakve kakve jesu. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
+	Skup podataka \textit{LC25000} podijeljen je na 3 disjunktna podskupa: skup za učenje (70\% podataka), skup za validaciju (10\% podataka) i skup za testiranje (20\% podataka). Skup za validaciju služi za odabir optimalnog modela prilikom učenja, a skup za testiranje služi za mjerenje performansi modela na neviđenim podacima nakon učenja. Same slike nisu prilagođavane, nego dovođene na ulaz neuronske mreže onakve kakve jesu. Dodatno, prilikom učenja korištene su minigrupe od po 16 slika. Korištena su 2 modela: \textit{ResNet50} i \textit{MobileNetV2}. 
 	
-	Radi povećanja učinkovitosti, modeli su inicijalizirani mrežama predtreniranim na skupu podataka \textit{ImageNet}. To je skup s preko 14 milijuna slika i više od 20 tisuća razreda. 
+	Radi povećanja učinkovitosti, osnovni slojevi modela su inicijalizirani parametrima dobivenim predtreniranjem na skupu podataka \textit{ImageNet}. To je skup s preko 14 milijuna slika i više od 20 tisuća razreda. Ovo se naziva prijenosno učenje (TL), koristimo prethodno naučeno znanje kako bi poboljšali performanse i skratili učenje našeg modela.
 	
 	\subsection{ResNet50}
 	Kao temelj prvog modela korištena je konvolucijska neuronska mreža s 50 slojeva \textit{ResNet50}. Ona ima 48 konvolucijskih slojeva, jedan sloj \textit{MaxPool} i jedan sloj \textit{Average pooling}. 
 	
 	Glavna inovacija u \textit{ResNet50} su rezidualne veze, koje omogućavaju mreži da nauči rezidualne funkcije za mapiranje ulaza na tražene izlaze. Omogućava veću dubinu mreža bez problema iščezavanja gradijenta. 
 	
-	Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 4 skrivena te 1 izlazni sloj. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+	Prednaučena je na skupu podataka \textit{ImageNet}. Dodana su još 4 skrivena te 1 izlazni sloj. Skriveni slojevi su redom: \textit{BatchNormalization}, \textit{Flatten}, potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{ReLu} i \textit{Dropout}. Izlazni sloj je potpuno povezani sloj \textit{Dense} s aktivacijskom funkcijom \textit{softmax}. Skriveni sloj \textit{Dropout} koristi se samo za vrijeme treniranja. Ignorira određeni postotak veza u pojedinom koraku učenja i na taj način sprječava prenaučenost.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{ostalo/resnet50model.png}
-		\caption{Korišteni model ResNet50}
+		\includegraphics[width=0.7\columnwidth]{Architectures/resnet50_architecture.png}
+		\caption{Arhitektura korištenog modela ResNet50}
 		\label{fig:resnet50model}
 	\end{figure}
 	
 	Dakle model \textit{ResNet50} ima 55 slojeva i 49287557 parametara, od kojih je 25695749 njih učivo jer se predtrenirani slojevi nisu učili. Učenje modela provedeno je kroz 60 epoha.
 	
-	
-	
 	\subsection{MobileNetV2}
-	Drugi model utemeljen je na čisto konvolucijskoj neuronskoj mreži s 53 konvolucijska sloja \textit{MobileNetV2}. Ona je osmišljena kako bi učinkovita radila na mobilnim uređajima zahvaljujući manjem broju parametara. Uvodi novu vrstu bloka \textit{Inverted Residuals} i konvolucijski sloj \textit{Linear Bottleneck}. U bloku \textit{Inverted Residuals}, značajke nižih dimenzija preslikavaju se u više dimenzije, zatim se primjenjuje konvolucijski sloj \textit{Depthwise}, nakon čega se dimenzije značajki ponovno snižavaju na početne. Sloj \textit{Linear Bottleneck} konvolucijski je sloj \textit{Bottleneck} s linearnom aktivacijskom funkcijom.
+	Drugi model utemeljen je na čisto konvolucijskoj neuronskoj mreži s 53 konvolucijska sloja \textit{MobileNetV2}. Ona je osmišljena kako bi učinkovito radila na mobilnim uređajima zahvaljujući manjem broju parametara. Uvodi novu vrstu bloka \textit{Inverted Residuals} i konvolucijski sloj \textit{Linear Bottleneck}. U bloku \textit{Inverted Residuals}, značajke nižih dimenzija preslikavaju se u više dimenzije, zatim se primjenjuje konvolucijski sloj \textit{Depthwise}, nakon čega se dimenzije značajki ponovno snižavaju na početne. Sloj \textit{Linear Bottleneck} konvolucijski je sloj \textit{Bottleneck} s linearnom aktivacijskom funkcijom.
 	
-	Prednaučena je na skupu podataka \textit{ImageNet}. Dodano je još 2 skrivena te 1 izlazni sloj. Skriveni slojevi su  \textit{BatchNormalization} i \textit{Flatten}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
+	Prednaučena je na skupu podataka \textit{ImageNet}. Dodana su još 2 skrivena te 1 izlazni sloj. Skriveni slojevi su \textit{BatchNormalization} i \textit{Flatten}. Izlazni sloj je \textit{Dense} s aktivacijskom funkcijom \textit{softmax}.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=\columnwidth]{ostalo/mobilenetv2model.png}
-		\caption{Korišteni model MobileNetV2}
+		\includegraphics[width=0.7\columnwidth]{Architectures/mobilenetv2_architecture.png}
+		\caption{Arhitektura korištenog modela MobileNetV2}
 		\label{fig:mobilenetv2model}
 	\end{figure}
 	
-	Dakle model \textit{MobileNetV2} ima 56 slojeva i 2576709 parametara, od kojih je 2540037 njih učivo. Za razliku od modela \textit{ResNet50}, uče se i prednaučeni slojevi. Učenje modela provedeno je kroz 60 epoha.
+	Dakle model \textit{MobileNetV2} ima 56 slojeva i 2576709 parametara, od kojih je 2540037 njih učivo. Za razliku od modela \textit{ResNet50}, uče se i prednaučeni slojevi zbog manjeg broja parametara. Učenje modela provedeno je kroz 60 epoha.
 	
 	\section{Rezultati i usporedba s prijašnjim radovima}
 	\subsection{Prijašnji radovi}
 	Radovi s kojima će se rezultati uspoređivati su \cite{RAD1} i \cite{RAD2}. 
 	
-	U radu \cite{RAD1} koristi se konvolucijska neuronska mreža \textit{AlexNet} s preko 60 milijuna parametara (za usporedbu \textit{ResNet50} ima nešto manje od 50 milijuna). Sastoji se od 5 konvolucijskih slojeva i 3 potpuna povezana sloja. Skup podataka podijeljen je na skup za učenje (80\%) i skup za testiranje (20\%). Učenje je provedeno kroz 60 epoha. Na slikama iz razreda s lošijim rezultatima,  primijenjena je metoda \textit{Histogram equalization} radi poboljšanja kontrasta. Taj postupak naziva se CSIP (\textit{Class Selective Image Processing}).
+	U radu \cite{RAD1} koristi se konvolucijska neuronska mreža \textit{AlexNet} s preko 60 milijuna parametara (za usporedbu \textit{ResNet50} ima nešto manje od 50 milijuna). Sastoji se od 5 konvolucijskih slojeva i 3 potpuna povezana sloja. Skup podataka podijeljen je na skup za učenje (80\%) i skup za testiranje (20\%). Učenje je provedeno kroz 60 epoha. Na slikama iz razreda s lošijim rezultatima, primijenjena je metoda \textit{Histogram equalization} radi poboljšanja kontrasta. Taj postupak naziva se CSIP (\textit{Class Selective Image Processing}).
 	
 	U \cite{RAD2} glavni je fokus na pretprocesiranju skupa podataka. Povećava se oštrina slika metodom USM (\textit{Unsharp masking}) i radi se izlučivanje 2D Fourierovih značajki i 2D \textit{Wavelet} značajki koje se na kraju kombiniraju. Koristi se vlastita konvolucijska neuronska mreža s 3 konvolucijska sloja, 2 sloja \textit{MaxPool}, slojem \textit{BatchNormalization} i slojem \textit{Dropout}. Učenje je provedeno kroz 500 epoha. Skup podataka podijeljen je na skup za učenje (70\%) i skup za testiranje (30\%)
-	
-	
-	
 	
 	\subsection{Točnost i gubitak}
 	Za oba modela prikazani su grafovi točnosti i gubitka na skupu za učenje i skupu za validaciju tijekom procesa učenja (slike \ref{fig:RN50_acc_loss} i \ref{fig:MN_acc_loss}). 
@@ -243,11 +238,6 @@
 		
 	\end{figure}
 	
-	
-	
-	
-	
-	
 	Model \textit{ResNet50} ima općenito najmanje pogrešnih klasifikacija, 0.68\%. \textit{MobileNetV2} ima 1.16\%, \textit{AlexNet}\cite{RAD1} ima 1.62\%  i \textit{CNN}\cite{RAD2} ima 3.67\% pogrešnih klasifikacija. 
 	
 	\textit{ResNet50}, \textit{MobileNetV2} i \textit{CNN}\cite{RAD2} imaju problema s razlikovanjem adenokarcinoma i karcinoma pločastih stanica plućnog tkiva. Uspješno raspoznaje radi li se o karcinomu ili ne, ali teže određuje vrstu karcinoma na plućnom tkivu. To implicira bliskost tih grupa slika u ulaznom prostoru i odgovara prirodi problema.
@@ -255,9 +245,8 @@
 	\textit{AlexNet}\cite{RAD1} taj problem nema, ali ima više manjih pogrešaka između raznih razreda. 
 	
 	
-	
 	\section{Mjere dobrote}
-	Konačno, za svaki razred u oba naša modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), F1 (\ref{eq:4}), odziv (\ref{eq:3}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}). Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}). Tablica \ref{table:6} usporedno prikazuje prosječne mjere dobrote nad svim klasama za naše modele i modele iz prijašnjih radova.
+	Konačno, za svaki razred u oba naša modela dan je stupčasti dijagram sljedećih mjera dobrote: točnost (\ref{eq:1}), preciznost (\ref{eq:2}), odziv (\ref{eq:3}), F1 (\ref{eq:4}) i specifičnost (\ref{eq:5}) (slike \ref{fig:RN50_fit_met} i \ref{fig:MN_fit_met}). Isti podaci prikazani su tablično (tablice \ref{table:4} i \ref{table:5}). Tablica \ref{table:6} usporedno prikazuje prosječne mjere dobrote nad svim klasama za naše modele i modele iz prijašnjih radova.
 	
 	\begin{equation}
 		Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \label{eq:1}
@@ -351,11 +340,11 @@
 		\label{table:6}
 		\begin{tabular}{ |c|c|c|c|c| } 
 			\hline
-			Model & Točnost & Preciznost & F1 &;   Specifičnost \\
+			Model & Točnost & Preciznost & F1 &   Specifičnost \\
 			\hline\hline
 			\textbf{ResNet50} & \textbf{99.73\%} & \textbf{99.32\% }& \textbf{99.32\%} &  \textbf{99.83\%} \\
 			\hline
-			MobileNetV2 & 99.46\% & 98.67\% & 98.66\% &;  99.67\% \\
+			MobileNetV2 & 99.46\% & 98.67\% & 98.66\% &  99.67\% \\
 			\hline
 			AlexNet\cite{RAD1} & 95.90\% &	92.36\%	&86.94\% &	97.46\%
 			\\
@@ -365,13 +354,11 @@
 		\end{tabular}
 	\end{table}
 	
-	Usporednom analizom mjera naših modela i modela iz prijašnjih radova, vidi se da naši modeli imaju bolji rezultat po svim korištenim mjerilima.
-	
-	
+	Usporednom analizom mjera naših modela i modela iz prijašnjih radova, vidi se da naši modeli imaju bolji rezultat po svim korištenim mjerilima. Mjera za odziv nije prikazana jer nije prikazana u \cite{RAD2}.
 	
 	
 	\section{Zaključak}
-	U ovom radu su opisane dvije metode za klasifikaciju dvije varijante raka pluća i raka crijeva pomoću dvije mreže, i klasifikacija bezopasnih stanica tkiva. Opisani su podaci nad kojima su metode testirane i opisani su prijašnji radovi koji su predložili rješenja na temu. Nakon provedenih eksperimenata su opisani vrlo zadovoljavajući rezultati i dane su usporedbe s prijašnjim radovima. Naša metoda je u usporedbi na rad koji smo uzeli za glavni uzor dala i bolje rezultate. Također smo predstavili metodu koja ne samo da ne iziskuje pretprocesiranje slika, već i sadrži izrazito manji skup parametara(MobileNetV2), što daje motivaciju za daljnja istraživanja s njime i laku mobilizaciju i primjenu u stvarnoj medicinskoj industriji. Ovo je područje koje se ubrzanim tempom širi, i sadrži još mnogo prostora za daljnji rast i novog proučavanja. Radovi na ovu temu su od izrazite važnosti jer mogu spasiti milijune ljudskih života od ove strašne bolesti.
+	U ovom radu su opisane dvije metode za klasifikaciju dvije varijante raka pluća i raka crijeva s pomoću dvije mreže i klasifikacija bezopasnih stanica tkiva. Opisani su podaci nad kojima su metode testirane i opisani su prijašnji radovi koji su predložili rješenja na temu. Nakon provedenih eksperimenata su opisani vrlo zadovoljavajući rezultati i dane su usporedbe s prijašnjim radovima. Naša metoda je u usporedbi na rad koji smo uzeli za glavni uzor dala i bolje rezultate. Također smo predstavili metodu koja ne samo da ne iziskuje pretprocesiranje slika, već i sadrži izrazito manji skup parametara (MobileNetV2), što daje motivaciju za daljnja istraživanja s njime i laku mobilizaciju i primjenu u stvarnoj medicinskoj industriji. Ovo je područje koje se ubrzanim tempom širi, i sadrži još mnogo prostora za daljnji rast i novog proučavanja. Radovi na ovu temu su od izrazite važnosti jer mogu spasiti milijune ljudskih života od ove strašne bolesti.
 	
 	\bibliography{literatura}
 	\bibliographystyle{ieeetr}
